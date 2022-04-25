@@ -48,7 +48,7 @@ const ShowHappyHour = (props) =>{
         <Container className="fluid">
             <Card className="shadow p-3 mb-5 bg-body rounded mt-3">
                 <Card.Header>
-                    <h2>{happyHour.name} at {happyHour.owner.username}'s </h2>
+                    <h2>{happyHour.name} at {happyHour.owner.username} </h2>
                 </Card.Header>
                 <Card.Body>
                     <Card.Text>
