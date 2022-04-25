@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getOneHappyHour } from '../../api/happyHours'
+import { getOneHappyHour, removeHappyHour } from '../../api/happyHours'
 import {  Spinner, Container, Card, Button} from 'react-bootstrap'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 
@@ -8,6 +8,15 @@ const ShowHappyHour = (props) =>{
     const {id} = useParams()
     const [happyHour, setHappyHour] = useState(null)
     const [updated, setUpdated] = useState(false)
+    const navigate = useNavigate()
+
+    const deleteHappyHour = () =>{
+        removeHappyHour(user, happyHour._id)
+            .then(()=>{
+                navigate('/happy-hours')
+            })
+    }
+
 
     useEffect(()=>{
         getOneHappyHour(id, user)
@@ -54,7 +63,7 @@ const ShowHappyHour = (props) =>{
                     <Card.Text>
                         <p>Deals: {happyHour.deals}</p>
                         <p>Days: {happyHour.days}</p>
-                        <p>Hours: {happyHour.hours[0]} - {happyHour.hours[1]}</p>
+                        <p>Hours: {happyHour.startTime} - {happyHour.endTime}</p>
                         <p>Address: {happyHour.address} {happyHour.city}</p>
                     </Card.Text>
                         <h6>Tags:</h6>
@@ -62,6 +71,13 @@ const ShowHappyHour = (props) =>{
 
                 </Card.Body>
                 <Card.Footer>
+                    {happyHour.owner._id === user._id &&
+                    <>
+                        <Button className="m-2" variant="info"> Add tags </Button>
+                        <Button className="m-2" variant="warning"> Edit </Button>
+                        <Button className="m-2" onClick={deleteHappyHour} variant="danger"> Delete </Button>
+                    </>
+                    }
                 </Card.Footer>
             </Card>
         </Container>

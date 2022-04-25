@@ -30,6 +30,11 @@ const estabAuthenticatedOptions = (
 			</Link>
 		</Nav.Item>
 		<Nav.Item className='m-2' >
+			<Link to='/add-happy-hour' style={linkStyle}>
+				Create Happy Hour
+			</Link>
+		</Nav.Item>
+		<Nav.Item className='m-2' >
 			<Link to='establishment/change-password' style={linkStyle}>
 				Change Password
 			</Link>
