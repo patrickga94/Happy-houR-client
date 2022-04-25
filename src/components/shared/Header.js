@@ -6,15 +6,31 @@ const linkStyle = {
     color: 'white',
     textDecoration: 'none'
 }
-const authenticatedOptions = (
+
+const guestAuthenticatedOptions = (
 	<>
 		<Nav.Item>
-			<Link to='change-password' style={linkStyle}>
+			<Link to='guest/change-password' style={linkStyle}>
 				Change Password
 			</Link>
 		</Nav.Item>
 		<Nav.Item>
-			<Link to='sign-out' style={linkStyle}>
+			<Link to='guest/sign-out' style={linkStyle}>
+				Sign Out
+			</Link>
+		</Nav.Item>
+	</>
+)
+
+const estabAuthenticatedOptions = (
+	<>
+		<Nav.Item>
+			<Link to='establishment/change-password' style={linkStyle}>
+				Change Password
+			</Link>
+		</Nav.Item>
+		<Nav.Item>
+			<Link to='establishment/sign-out' style={linkStyle}>
 				Sign Out
 			</Link>
 		</Nav.Item>
@@ -24,13 +40,20 @@ const authenticatedOptions = (
 const unauthenticatedOptions = (
 	<>
         <Nav.Item>
-		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
+		    <Link to='guest/sign-up' style={linkStyle}>Guest Sign Up</Link>
         </Nav.Item>
         <Nav.Item>
-		    <Link to='sign-in' style={linkStyle}>Sign In</Link>
+		    <Link to='guest/sign-in' style={linkStyle}>Guest Sign In</Link>
+        </Nav.Item>
+		<Nav.Item>
+		    <Link to='establishment/sign-up' style={linkStyle}>Establishment Sign Up</Link>
+        </Nav.Item>
+        <Nav.Item>
+		    <Link to='establishment/sign-in' style={linkStyle}>Establishment Sign In</Link>
         </Nav.Item>
 	</>
 )
+
 
 const alwaysOptions = (
 	<>
@@ -42,24 +65,30 @@ const alwaysOptions = (
 	</>
 )
 
-const Header = ({ user }) => (
-	<Navbar bg='primary' variant='dark' expand='md'>
-		<Navbar.Brand>
-            <Link to='/' style={linkStyle}>
-                react-auth-template
-            </Link>
-        </Navbar.Brand>
-		<Navbar.Toggle aria-controls='basic-navbar-nav' />
-		<Navbar.Collapse id='basic-navbar-nav'>
-			<Nav className='ml-auto'>
-				{user && (
-					<span className='navbar-text mr-2'>Welcome, {user.email}</span>
-				)}
-				{alwaysOptions}
-				{user ? authenticatedOptions : unauthenticatedOptions}
-			</Nav>
-		</Navbar.Collapse>
-	</Navbar>
-)
+const Header = ({ user }) => {
+	let authenticatedOptions
+	if(user){
+		authenticatedOptions = (user.isGuest ? guestAuthenticatedOptions : estabAuthenticatedOptions)
+	}
+	return (
+		<Navbar bg='primary' variant='dark' expand='md'>
+			<Navbar.Brand>
+				<Link to='/' style={linkStyle}>
+					Happy houR
+				</Link>
+			</Navbar.Brand>
+			<Navbar.Toggle aria-controls='basic-navbar-nav' />
+			<Navbar.Collapse id='basic-navbar-nav'>
+				<Nav className='ml-auto'>
+					{user && (
+						<span className='navbar-text mr-2'>Welcome, {user.username}</span>
+					)}
+					{alwaysOptions}
+					{user ? authenticatedOptions : unauthenticatedOptions}
+				</Nav>
+			</Navbar.Collapse>
+		</Navbar>
+	)
+}
 
 export default Header

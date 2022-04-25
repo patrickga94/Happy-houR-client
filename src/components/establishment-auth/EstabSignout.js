@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom'
 
 import {Button, ButtonGroup} from 'react-bootstrap'
 
-import { signOut } from '../../api/guest-auth'
+import { signOut } from '../../api/establishment-auth'
 import messages from '../shared/AutoDismissAlert/messages'
 
-const SignOut = (props) => {
+const EstabSignOut = (props) => {
 	const { msgAlert, clearUser, user } = props
     console.log(props)
 
@@ -48,4 +48,4 @@ const SignOut = (props) => {
 	)
 }
 
-export default SignOut
+export default EstabSignOut

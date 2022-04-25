@@ -8,10 +8,14 @@ import AutoDismissAlert from './components/shared/AutoDismissAlert/AutoDismissAl
 import Header from './components/shared/Header'
 import RequireAuth from './components/shared/RequireAuth'
 import Home from './components/Home'
-import SignUp from './components/auth/SignUp'
-import SignIn from './components/auth/SignIn'
-import SignOut from './components/auth/SignOut'
-import ChangePassword from './components/auth/ChangePassword'
+import GuestSignUp from './components/guest-auth/GuestSignUp'
+import GuestSignIn from './components/guest-auth/GuestSignIn'
+import GuestSignOut from './components/guest-auth/GuestSignOut'
+import GuestChangePassword from './components/guest-auth/GuestChangePassword'
+import EstabSignUp from './components/establishment-auth/EstabSignup'
+import EstabSignIn from './components/establishment-auth/EstabSignin'
+import EstabSignOut from './components/establishment-auth/EstabSignout'
+import EstabChangePassword from './components/establishment-auth/EstabChangePassword'
 
 const App = () => {
 
@@ -46,28 +50,51 @@ const App = () => {
 				<Routes>
 					<Route path='/' element={<Home msgAlert={msgAlert} user={user} />} />
 					<Route
-						path='/sign-up'
-						element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
+						path='/guest/sign-up'
+						element={<GuestSignUp msgAlert={msgAlert} setUser={setUser} />}
 					/>
 					<Route
-						path='/sign-in'
-						element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
+						path='/guest/sign-in'
+						element={<GuestSignIn msgAlert={msgAlert} setUser={setUser} />}
 					/>
-          <Route
-            path='/sign-out'
-            element={
-              <RequireAuth user={user}>
-                <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='/change-password'
-            element={
-              <RequireAuth user={user}>
-                <ChangePassword msgAlert={msgAlert} user={user} />
-              </RequireAuth>}
-          />
+					<Route
+						path='/guest/sign-out'
+						element={
+						<RequireAuth user={user}>
+							<GuestSignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
+						</RequireAuth>
+						}
+					/>
+					<Route
+						path='/guest/change-password'
+						element={
+						<RequireAuth user={user}>
+							<GuestChangePassword msgAlert={msgAlert} user={user} />
+						</RequireAuth>}
+					/>
+										<Route
+						path='/establishment/sign-up'
+						element={<EstabSignUp msgAlert={msgAlert} setUser={setUser} />}
+					/>
+					<Route
+						path='/establishment/sign-in'
+						element={<EstabSignIn msgAlert={msgAlert} setUser={setUser} />}
+					/>
+					<Route
+						path='/establishment/sign-out'
+						element={
+						<RequireAuth user={user}>
+							<EstabSignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
+						</RequireAuth>
+						}
+					/>
+					<Route
+						path='/establishment/change-password'
+						element={
+						<RequireAuth user={user}>
+							<EstabChangePassword msgAlert={msgAlert} user={user} />
+						</RequireAuth>}
+					/>
 				</Routes>
 				{msgAlerts.map((msgAlert) => (
 					<AutoDismissAlert

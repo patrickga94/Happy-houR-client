@@ -8,7 +8,7 @@ import messages from '../shared/AutoDismissAlert/messages'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-const SignUp = (props) => {
+const GuestSignUp = (props) => {
 	// constructor(props) {
 	// 	super(props)
 
@@ -129,4 +129,4 @@ const SignUp = (props) => {
 
 }
 
-export default SignUp
+export default GuestSignUp
