@@ -26,6 +26,7 @@ const IndexHappyHours = (props) => {
         return <p>No happy hours here, this town is a snooze fest!</p>
     }
 
+
     let happyHourCards
     if(happyHours.length > 0){
         happyHourCards = happyHours.map(happyHour => {
@@ -34,11 +35,12 @@ const IndexHappyHours = (props) => {
                 <Card.Header>{happyHour.name} at {happyHour.owner.username}</Card.Header>
                 <Card.Body>
                     <Card.Text>
-                        <p>{happyHour.addres}, {happyHour.city}</p>
+                        <p>{happyHour.address}, {happyHour.city}</p>
                         <Link className='viewHappyHour' to={`/happy-hours/${happyHour._id}`}>View happyHour</Link>
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>
+                    Tags: {happyHour.tags.length > 0 ? <span>{happyHour.tags}</span>: <span>None</span>}  
                 </Card.Footer>
             </Card> 
             )

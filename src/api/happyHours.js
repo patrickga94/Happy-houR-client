@@ -45,8 +45,14 @@ export const getTaggedHappyHours = (city, tag, user) => {
 }
 
 // show a specific happy hour function
-export const getOneHappyHour = (happyHourId) => {
-    return axios(`${apiUrl}/happy-hours/${happyHourId}`)
+export const getOneHappyHour = (happyHourId, user) => {
+    return axios({
+        url: `${apiUrl}/happy-hours/${happyHourId}`,
+        method: 'GET',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        }
+    })
 }
 
 // POST -> create function
