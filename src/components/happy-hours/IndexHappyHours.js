@@ -1,0 +1,62 @@
+import React, { useState, useEffect } from 'react'
+import { getAllHappyHours } from '../../api/happyHours'
+import { Card } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+
+
+const cardContainerLayout = {
+    display: 'flex',
+    justifyContent: 'center',
+    flexFlow: 'row wrap'
+}
+
+const IndexHappyHours = (props) => {
+    const {user} = props
+    const [happyHours, setHappyHours] = useState(null)
+    useEffect(()=>{
+        getAllHappyHours(user)
+            .then(res=>{
+                setHappyHours(res.data.happyHours)
+            })
+            .catch(console.error)
+    }, [])
+    if(!happyHours){
+        return <p>loading...</p>
+    } else if (happyHours.length === 0) {
+        return <p>No happy hours here, this town is a snooze fest!</p>
+    }
+
+    let happyHourCards
+    if(happyHours.length > 0){
+        happyHourCards = happyHours.map(happyHour => {
+            return (
+                <Card key={happyHour._id} style={{width: '30%' }} className="m-2 shadow p-3 mb-5 bg-body rounded">
+                <Card.Header>{happyHour.name} at {happyHour.owner.username}</Card.Header>
+                <Card.Body>
+                    <Card.Text>
+                        <p>{happyHour.addres}, {happyHour.city}</p>
+                        <Link className='viewHappyHour' to={`/happy-hours/${happyHour._id}`}>View happyHour</Link>
+                    </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                </Card.Footer>
+            </Card> 
+            )
+        })
+    }
+    return (
+        <>
+        <div className='title'>
+            <h1>All Happy Hours</h1>
+        </div>
+        <div style={cardContainerLayout}>
+            {happyHourCards}
+        </div>
+        </>
+    )
+
+
+}
+
+
+export default IndexHappyHours

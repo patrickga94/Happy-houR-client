@@ -9,12 +9,12 @@ const linkStyle = {
 
 const guestAuthenticatedOptions = (
 	<>
-		<Nav.Item>
+		<Nav.Item className='m-2'>
 			<Link to='guest/change-password' style={linkStyle}>
 				Change Password
 			</Link>
 		</Nav.Item>
-		<Nav.Item>
+		<Nav.Item className='m-2' >
 			<Link to='guest/sign-out' style={linkStyle}>
 				Sign Out
 			</Link>
@@ -24,12 +24,17 @@ const guestAuthenticatedOptions = (
 
 const estabAuthenticatedOptions = (
 	<>
-		<Nav.Item>
+		<Nav.Item className='m-2' >
+			<Link to='happy-hours' style={linkStyle}>
+				All happy hours
+			</Link>
+		</Nav.Item>
+		<Nav.Item className='m-2' >
 			<Link to='establishment/change-password' style={linkStyle}>
 				Change Password
 			</Link>
 		</Nav.Item>
-		<Nav.Item>
+		<Nav.Item className='m-2' >
 			<Link to='establishment/sign-out' style={linkStyle}>
 				Sign Out
 			</Link>
@@ -39,16 +44,16 @@ const estabAuthenticatedOptions = (
 
 const unauthenticatedOptions = (
 	<>
-        <Nav.Item>
+        <Nav.Item className='m-2' >
 		    <Link to='guest/sign-up' style={linkStyle}>Guest Sign Up</Link>
         </Nav.Item>
-        <Nav.Item>
+        <Nav.Item className='m-2' >
 		    <Link to='guest/sign-in' style={linkStyle}>Guest Sign In</Link>
         </Nav.Item>
-		<Nav.Item>
+		<Nav.Item className='m-2' >
 		    <Link to='establishment/sign-up' style={linkStyle}>Establishment Sign Up</Link>
         </Nav.Item>
-        <Nav.Item>
+        <Nav.Item className='m-2' >
 		    <Link to='establishment/sign-in' style={linkStyle}>Establishment Sign In</Link>
         </Nav.Item>
 	</>
@@ -73,7 +78,7 @@ const Header = ({ user }) => {
 	return (
 		<Navbar bg='primary' variant='dark' expand='md'>
 			<Navbar.Brand>
-				<Link to='/' style={linkStyle}>
+				<Link to='/' className='m-2' style={linkStyle}>
 					Happy houR
 				</Link>
 			</Navbar.Brand>
