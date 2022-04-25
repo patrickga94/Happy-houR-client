@@ -23,6 +23,7 @@ const HappyHourForm = (props) => {
                     name='name'
                     type='text'
                     onChange={handleChange}
+                    required
                 />
                 </Col>
                 <Col>
@@ -33,6 +34,7 @@ const HappyHourForm = (props) => {
                     name='deals'
                     type='text'
                     onChange={handleChange}
+                    required
                     />
                 </Col>
             </Row>
@@ -43,6 +45,7 @@ const HappyHourForm = (props) => {
                     type='text'
                     name='address'
                     onChange={handleChange}
+                    required
                 />
                 <br></br>
             <Row>
@@ -54,6 +57,7 @@ const HappyHourForm = (props) => {
                         type="text"
                         name='city'
                         onChange={handleChange}
+                        required
                 />
                 </Col>
                 <br></br>
@@ -65,6 +69,7 @@ const HappyHourForm = (props) => {
                             name='days'
                             type="text"
                             onChange={handleChange}
+                            required
                 />
                 </Col>
             </Row>
@@ -81,6 +86,7 @@ const HappyHourForm = (props) => {
                     name='startTime'
                     type='time'
                     onChange={handleChange}
+                    required
 
                 />
                 <br></br>
@@ -97,6 +103,7 @@ const HappyHourForm = (props) => {
                     name='endTime'
                     type='time'
                     onChange={handleChange}
+                    required
 
                 />
                 <br></br>

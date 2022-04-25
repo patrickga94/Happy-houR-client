@@ -10,13 +10,13 @@ const CreateHappyHour = (props) => {
     const handleChange = (e) => {
         // e === event
         e.persist()
-        //set's Adventure to the new values returned by the input fields
+        //set's happyHour to the new values returned by the input fields
         setHappyHour(prevHappyHour => {
             const name = e.target.name
             let value = e.target.value
             console.log('etarget type', e.target.type)
-            if (e.target.type === 'number') {
-                value = parseInt(e.target.value)
+            if (e.target.name === 'days') {
+                value = e.target.value.split(',')
             } 
             
             
