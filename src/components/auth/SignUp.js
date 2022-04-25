@@ -20,6 +20,8 @@ const SignUp = (props) => {
 	// }    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [username, setUsername] = useState('')
+    const [city, setCity] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
     const navigate = useNavigate()
@@ -29,7 +31,7 @@ const SignUp = (props) => {
 
 		const { msgAlert, setUser } = props
 
-        const credentials = {email, password, passwordConfirmation}
+        const credentials = {email, password, username, city, passwordConfirmation}
 
 		signUp(credentials)
 			.then(() => signIn(credentials))
@@ -45,6 +47,8 @@ const SignUp = (props) => {
 			.catch((error) => {
                 setEmail('')
                 setPassword('')
+                setUsername('')
+                setCity('')
                 setPasswordConfirmation('')
 				msgAlert({
 					heading: 'Sign Up Failed with error: ' + error.message,
@@ -69,6 +73,28 @@ const SignUp = (props) => {
                             value={email}
                             placeholder='Enter email'
                             onChange={e => setEmail(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='username'>
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control
+                            required
+                            type='text'
+                            name='username'
+                            value={username}
+                            placeholder='Enter username'
+                            onChange={e => setUsername(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='city'>
+                        <Form.Label>City</Form.Label>
+                        <Form.Control
+                            required
+                            type='text'
+                            name='city'
+                            value={city}
+                            placeholder='Enter city of residence'
+                            onChange={e => setCity(e.target.value)}
                         />
                     </Form.Group>
                     <Form.Group controlId='password'>
