@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { getAllHappyHours } from '../../api/happyHours'
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import ShowTag from '../tags/ShowTag'
 
 
 const cardContainerLayout = {
@@ -30,6 +31,16 @@ const IndexHappyHours = (props) => {
     let happyHourCards
     if(happyHours.length > 0){
         happyHourCards = happyHours.map(happyHour => {
+            // let tagPills
+            // if (happyHour.tags.length > 0){
+            //     tagPills = happyHour.tags.map(tag => (
+            //         <ShowTag 
+            //             tag={tag} 
+            //             user={user} 
+            //             happyHour={happyHour}
+            //         />
+            //     ))
+            // }
             return (
                 <Card key={happyHour._id} style={{width: '30%' }} className="m-2 shadow p-3 mb-5 bg-body rounded">
                 <Card.Header>{happyHour.name} at {happyHour.owner.username}</Card.Header>
@@ -40,7 +51,7 @@ const IndexHappyHours = (props) => {
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                    Tags: {happyHour.tags.length > 0 ? <span>{happyHour.tags}</span>: <span>None</span>}  
+                    {/* Tags: {happyHour.tags.length > 0 ? {tagPills}: <span>None</span>}   */}
                 </Card.Footer>
             </Card> 
             )

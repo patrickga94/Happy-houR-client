@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { getOneHappyHour, removeHappyHour } from '../../api/happyHours'
 import {  Spinner, Container, Card, Button} from 'react-bootstrap'
 import { Link, useParams, useNavigate } from 'react-router-dom'
+import TagForm from '../tags/TagForm'
+import ShowTag from '../tags/ShowTag'
 
 const ShowHappyHour = (props) =>{
     const {user} = props
@@ -32,7 +34,11 @@ const ShowHappyHour = (props) =>{
     if(happyHour){
         if (happyHour.tags.length > 0){
             tagPills = happyHour.tags.map(tag => (
-                <span className='badge rounded-pill bg-secondary'>{tag.tag}</span>
+                <ShowTag 
+                    tag={tag} 
+                    user={user} 
+                    happyHour={happyHour}
+                    triggerRefresh = {() => setUpdated(prev => !prev)}/>
             ))
         }
         if (happyHour.comments.length > 0){
@@ -73,13 +79,21 @@ const ShowHappyHour = (props) =>{
                 <Card.Footer>
                     {happyHour.owner._id === user._id &&
                     <>
-                        <Button className="m-2" variant="info"> Add tags </Button>
                         <Button className="m-2" variant="warning"> Edit </Button>
                         <Button className="m-2" onClick={deleteHappyHour} variant="danger"> Delete </Button>
                     </>
                     }
                 </Card.Footer>
             </Card>
+            {happyHour.owner._id === user._id &&
+                <div className='tag form'>
+                    <TagForm
+                        happyHour = {happyHour}
+                        triggerRefresh = {() => setUpdated(prev => !prev)}
+                        user = {user}
+                    />
+                </div>
+            }
         </Container>
         </>
     )
