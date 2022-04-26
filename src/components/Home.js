@@ -14,7 +14,11 @@ const Home = (props) => {
         //sets the search to the value of the input field
         setSearch(prevSearch => {
             const name = e.target.name
-            let value = e.target.value.toUpperCase()
+            let value = e.target.value
+
+			if(e.target.name === 'tag'){
+				value = e.target.value.toUpperCase()
+			}
 
             const updatedValue = { [name]: value }
 
@@ -25,10 +29,15 @@ const Home = (props) => {
         })
     }
 
-	const handleSubmit = (e) => {
+	const handleTagSubmit = (e) => {
 		console.log('this is search', search)
 		e.preventDefault()
-		navigate(`/happy-hours/index/${user.city}/${search.search}`)
+		navigate(`/happy-hours/index/${user.city}/${search.tag}`)
+	}
+	const handleCitySubmit = (e) => {
+		console.log('this is search', search)
+		e.preventDefault()
+		navigate(`/happy-hours/index/${search.city}`)
 	}
 
 	let userPage = <h3>Sign in for more options</h3>
@@ -42,10 +51,19 @@ const Home = (props) => {
 					<h5>Going out in {user.city}?</h5>
 					<Link className='btn btn-primary mb-5' to={`/happy-hours/index/${user.city}`}>View happy hours in your city</Link>
 					<h5>Search for tags:</h5>
-					<Form onSubmit={handleSubmit} className='row gy-2 gx-3 align-items-center'>
+					<Form onSubmit={handleTagSubmit} className='row gy-2 gx-3 align-items-center'>
 						<Form.Control
 							placeholder="Search"
-							name='search'
+							name='tag'
+							onChange={handleChange}
+						/>
+						<Button className="search-btn" type="submit">Search</Button>
+					</Form>
+					<h5>Search for happy hours in a different city</h5>
+					<Form onSubmit={handleCitySubmit} className='row gy-2 gx-3 align-items-center'>
+						<Form.Control
+							placeholder="Search"
+							name='city'
 							onChange={handleChange}
 						/>
 						<Button className="search-btn" type="submit">Search</Button>
