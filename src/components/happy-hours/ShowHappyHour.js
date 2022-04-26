@@ -5,6 +5,8 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import TagForm from '../tags/TagForm'
 import ShowTag from '../tags/ShowTag'
 import EditHappyHourModal from './EditHappyHourModal'
+import CommentForm from '../comments/CommentForm'
+import ShowComment from '../comments/ShowComment'
 
 const ShowHappyHour = (props) =>{
     const {user} = props
@@ -44,10 +46,10 @@ const ShowHappyHour = (props) =>{
                     triggerRefresh = {() => setUpdated(prev => !prev)}/>
             ))
         }
-        if (happyHour.comments.length > 0){
-            comments = happyHour.comments.map(comment => {
-                <p key={comment._id}>{comment.note} by: {comment.author}</p>
-            })
+        if(happyHour.comments.length > 0){
+            comments = happyHour.comments.map(comment => (
+                <ShowComment key={comment._id}  comment={comment} happyHour={happyHour} user={user}  triggerRefresh={() => setUpdated(prev => !prev)}/>
+            ))
         }
     }
 
@@ -84,19 +86,26 @@ const ShowHappyHour = (props) =>{
                     <>
                         <Button className="m-2" onClick={() => setModalOpen(true)} variant="warning"> Edit </Button>
                         <Button className="m-2" onClick={deleteHappyHour} variant="danger"> Delete </Button>
+                        <div className='tag form'>
+                            <TagForm
+                                happyHour = {happyHour}
+                                triggerRefresh = {() => setUpdated(prev => !prev)}
+                                user = {user}
+                            />
+                        </div>
                     </>
                     }
                 </Card.Footer>
             </Card>
-            {happyHour.owner._id === user._id &&
-                <div className='tag form'>
-                    <TagForm
-                        happyHour = {happyHour}
-                        triggerRefresh = {() => setUpdated(prev => !prev)}
-                        user = {user}
-                    />
-                </div>
-            }
+            <div className='justify-content-center' id='comment-box'>
+                {comments}
+                <CommentForm 
+                    user = {user}
+                    happyHour = {happyHour}
+                    triggerRefresh = {()=> setUpdated(prev => !prev)}
+
+                />
+            </div>
         </Container>
         <EditHappyHourModal 
             happyHour = {happyHour}
