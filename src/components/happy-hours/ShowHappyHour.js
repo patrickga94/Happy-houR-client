@@ -97,7 +97,7 @@ const ShowHappyHour = (props) =>{
                     }
                 </Card.Footer>
             </Card>
-            <div className='justify-content-center' id='comment-box'>
+            <div  id='comment-box'>
                 {comments}
                 <CommentForm 
                     user = {user}

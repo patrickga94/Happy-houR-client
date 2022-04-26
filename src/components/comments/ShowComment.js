@@ -18,27 +18,25 @@ const ShowComment = (props) => {
     
     return (
         <>
-            <div className='justify-content-center'>
-                <Card className="m-2 w-50 shadow p-3 mb-5 bg-body rounded">
-                    <Card.Header>
-                        author: {comment.author}
-                        {/* gives the option to delete a comment if the user is the owner of that comment */}
-                        {
-                            user._id === comment.owner &&
-                                <>
-                                    <div className="float-end">
-                                    <Button className='btn-sm' onClick={() => destroyComment()}variant="danger">
-                                        X
-                                    </Button>
-                                    </div>
-                                </>
-                        }
-                    </Card.Header>
-                    <Card.Body>
-                        <small>{comment.note}</small><br/>
-                    </Card.Body>
-                </Card>
-            </div>
+            <Card className="m-2 w-50 shadow p-3 mb-5 bg-body rounded justify-content-center">
+                <Card.Header>
+                    author: {comment.author}
+                    {/* gives the option to delete a comment if the user is the owner of that comment */}
+                    {
+                        user._id === comment.owner &&
+                            <>
+                                <div className="float-end">
+                                <Button className='btn-sm' onClick={() => destroyComment()}variant="danger">
+                                    X
+                                </Button>
+                                </div>
+                            </>
+                    }
+                </Card.Header>
+                <Card.Body>
+                    <small>{comment.note}</small><br/>
+                </Card.Body>
+            </Card>
         </>
     )
 }
