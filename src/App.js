@@ -21,6 +21,7 @@ import ShowHappyHour from './components/happy-hours/ShowHappyHour'
 import CreateHappyHour from './components/happy-hours/CreateHappyHour'
 import CityHappyHours from './components/happy-hours/CityHappyHours'
 import TaggedCityHappyHours from './components/happy-hours/TaggedCityHappyHours'
+import MyFaveHappyHours from './components/happy-hours/MyFaveHappyHours'
 
 const App = () => {
 
@@ -129,6 +130,14 @@ const App = () => {
 						element={
 							<RequireAuth user={user}>
 								<IndexHappyHours msgAlert={msgAlert} user={user} />
+							</RequireAuth>
+							}
+					/>
+					<Route
+						path='/happy-hours/favorites'
+						element={
+							<RequireAuth user={user}>
+								<MyFaveHappyHours msgAlert={msgAlert} user={user} />
 							</RequireAuth>
 							}
 					/>

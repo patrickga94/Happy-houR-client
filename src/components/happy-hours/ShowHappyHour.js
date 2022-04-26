@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getOneHappyHour, removeHappyHour, updateHappyHour } from '../../api/happyHours'
+import { addFavorite } from '../../api/favorites'
 import {  Spinner, Container, Card, Button} from 'react-bootstrap'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import TagForm from '../tags/TagForm'
@@ -21,6 +22,14 @@ const ShowHappyHour = (props) =>{
             .then(()=>{
                 navigate('/happy-hours')
             })
+    }
+
+    const faveHappyHour = () => {
+        addFavorite(user, happyHour._id)
+            .then(()=>{
+                setUpdated(prev => !prev)
+            })
+            .catch(console.error)
     }
 
 
@@ -94,6 +103,11 @@ const ShowHappyHour = (props) =>{
                             />
                         </div>
                     </>
+                    }
+                    {happyHour.owner._id != user._id &&
+                        <>
+                            <Button onClick={faveHappyHour} variant="success">Add to favorites!</Button>
+                        </>
                     }
                 </Card.Footer>
             </Card>

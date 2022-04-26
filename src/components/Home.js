@@ -50,7 +50,7 @@ const Home = (props) => {
 					<h1 className="mt-3">Welcome back, {user.username}!</h1>
 					<h5>Going out in {user.city}?</h5>
 					<Link className='btn btn-primary mb-5' to={`/happy-hours/index/${user.city}`}>View happy hours in your city</Link>
-					<h5>Search for tags:</h5>
+					<h5>Search for tags in local happy hours:</h5>
 					<Form onSubmit={handleTagSubmit} className='row gy-2 gx-3 align-items-center'>
 						<Form.Control
 							placeholder="Search"
@@ -68,7 +68,7 @@ const Home = (props) => {
 						/>
 						<Button className="search-btn" type="submit">Search</Button>
 					</Form>
-					<Link className="btn btn-primary mt-5 mb-5" to={`/happy-hours/index/${user.city}`}>View your favorites</Link>
+					<Link className="btn btn-primary mt-5 mb-5" to={`/happy-hours/favorites`}>View your favorites</Link>
 				</>
 			)
 		}

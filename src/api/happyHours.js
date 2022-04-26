@@ -22,6 +22,17 @@ export const getMyHappyHours = (user) => {
     })
 }
 
+// index of a user's happy hours
+export const getFaveHappyHours = (user) => {
+    return axios({
+        url: `${apiUrl}/happy-hours/favorites`,
+        method: 'GET',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        }
+    })
+}
+
 // index of happy hours in a given city
 export const getLocalHappyHours = (city, user) => {
     return axios({
