@@ -15,7 +15,14 @@ const ShowTag = (props) => {
 
     return (
         <>
-        <span className='badge rounded-pill bg-secondary'>{tag.tag}</span>
+        <span className='badge rounded-pill bg-secondary m-1'>
+            {tag.tag} 
+            { user._id === happyHour.owner._id ?
+                <Button className='btn-sm' onClick={()=>destroyTag()} variant='secondary'><strong>x</strong></Button>
+                :
+                null
+            } 
+        </span>
         </>
     )
 }
