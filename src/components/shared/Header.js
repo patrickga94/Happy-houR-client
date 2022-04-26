@@ -7,45 +7,7 @@ const linkStyle = {
     textDecoration: 'none'
 }
 
-const guestAuthenticatedOptions = (
-	<>
-		<Nav.Item className='m-2'>
-			<Link to='guest/change-password' style={linkStyle}>
-				Change Password
-			</Link>
-		</Nav.Item>
-		<Nav.Item className='m-2' >
-			<Link to='guest/sign-out' style={linkStyle}>
-				Sign Out
-			</Link>
-		</Nav.Item>
-	</>
-)
 
-const estabAuthenticatedOptions = (
-	<>
-		<Nav.Item className='m-2' >
-			<Link to='happy-hours' style={linkStyle}>
-				All happy hours
-			</Link>
-		</Nav.Item>
-		<Nav.Item className='m-2' >
-			<Link to='/add-happy-hour' style={linkStyle}>
-				Create Happy Hour
-			</Link>
-		</Nav.Item>
-		<Nav.Item className='m-2' >
-			<Link to='establishment/change-password' style={linkStyle}>
-				Change Password
-			</Link>
-		</Nav.Item>
-		<Nav.Item className='m-2' >
-			<Link to='establishment/sign-out' style={linkStyle}>
-				Sign Out
-			</Link>
-		</Nav.Item>
-	</>
-)
 
 const unauthenticatedOptions = (
 	<>
@@ -78,6 +40,50 @@ const alwaysOptions = (
 const Header = ({ user }) => {
 	let authenticatedOptions
 	if(user){
+		const guestAuthenticatedOptions = (
+			<>
+				<Nav.Item className='m-2'>
+					<Link to={`happy-hours/index/${user.city}`} style={linkStyle}>
+						Local Happy Hours
+					</Link>
+				</Nav.Item>
+				<Nav.Item className='m-2'>
+					<Link to='guest/change-password' style={linkStyle}>
+						Change Password
+					</Link>
+				</Nav.Item>
+				<Nav.Item className='m-2' >
+					<Link to='guest/sign-out' style={linkStyle}>
+						Sign Out
+					</Link>
+				</Nav.Item>
+			</>
+		)
+		
+		const estabAuthenticatedOptions = (
+			<>
+				<Nav.Item className='m-2' >
+					<Link to='happy-hours' style={linkStyle}>
+						All happy hours
+					</Link>
+				</Nav.Item>
+				<Nav.Item className='m-2' >
+					<Link to='/add-happy-hour' style={linkStyle}>
+						Create Happy Hour
+					</Link>
+				</Nav.Item>
+				<Nav.Item className='m-2' >
+					<Link to='establishment/change-password' style={linkStyle}>
+						Change Password
+					</Link>
+				</Nav.Item>
+				<Nav.Item className='m-2' >
+					<Link to='establishment/sign-out' style={linkStyle}>
+						Sign Out
+					</Link>
+				</Nav.Item>
+			</>
+		)
 		authenticatedOptions = (user.isGuest ? guestAuthenticatedOptions : estabAuthenticatedOptions)
 	}
 	return (

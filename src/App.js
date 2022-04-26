@@ -19,6 +19,7 @@ import EstabChangePassword from './components/establishment-auth/EstabChangePass
 import IndexHappyHours from './components/happy-hours/IndexHappyHours'
 import ShowHappyHour from './components/happy-hours/ShowHappyHour'
 import CreateHappyHour from './components/happy-hours/CreateHappyHour'
+import CityHappyHours from './components/happy-hours/CityHappyHours'
 
 const App = () => {
 
@@ -103,6 +104,14 @@ const App = () => {
 						element={
 							<RequireAuth user={user}>
 								<IndexHappyHours msgAlert={msgAlert} user={user} />
+							</RequireAuth>
+							}
+					/>
+					<Route
+						path='/happy-hours/index/:city'
+						element={
+							<RequireAuth user={user}>
+								<CityHappyHours msgAlert={msgAlert} user={user} />
 							</RequireAuth>
 							}
 					/>
