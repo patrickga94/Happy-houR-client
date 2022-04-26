@@ -11,7 +11,7 @@ const Home = (props) => {
 	const handleChange = (e) => {
         // e === event
         e.persist()
-        //sets the comment to the value of the input field
+        //sets the search to the value of the input field
         setSearch(prevSearch => {
             const name = e.target.name
             let value = e.target.value.toUpperCase()
@@ -42,15 +42,15 @@ const Home = (props) => {
 					<h5>Going out in {user.city}?</h5>
 					<Link className='btn btn-primary mb-5' to={`/happy-hours/index/${user.city}`}>View happy hours in your city</Link>
 					<h5>Search for tags:</h5>
-					<Form onSubmit={handleSubmit}>
+					<Form onSubmit={handleSubmit} className='row gy-2 gx-3 align-items-center'>
 						<Form.Control
 							placeholder="Search"
 							name='search'
 							onChange={handleChange}
 						/>
-						<Button type="submit">Search</Button>
+						<Button className="search-btn" type="submit">Search</Button>
 					</Form>
-					<Link className="btn btn-primary mb-5" to={`/happy-hours/index/${user.city}`}>View your favorites</Link>
+					<Link className="btn btn-primary mt-5 mb-5" to={`/happy-hours/index/${user.city}`}>View your favorites</Link>
 				</>
 			)
 		}

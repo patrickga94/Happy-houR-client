@@ -57,7 +57,7 @@ const CityHappyHours = (props) => {
     return (
         <>
         <div className='title'>
-            <h1>All Happy Hours</h1>
+            <h1>{city} Happy Hours</h1>
         </div>
         <div style={cardContainerLayout}>
             {happyHourCards}
