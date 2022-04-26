@@ -48,6 +48,11 @@ const Header = ({ user }) => {
 					</Link>
 				</Nav.Item>
 				<Nav.Item className='m-2'>
+					<Link to={`happy-hours/favorites`} style={linkStyle}>
+						Favorites
+					</Link>
+				</Nav.Item>
+				<Nav.Item className='m-2'>
 					<Link to='guest/change-password' style={linkStyle}>
 						Change Password
 					</Link>
