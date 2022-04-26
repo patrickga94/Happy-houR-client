@@ -44,7 +44,7 @@ const MyHappyHours = (props) => {
                 <Card.Body>
                     <Card.Text>
                         <p>{happyHour.address}, {happyHour.city}</p>
-                        <Link className='viewHappyHour' to={`/happy-hours/${happyHour._id}`}>View happyHour</Link>
+                        <Link className='viewHappyHour' to={`/happy-hours/${happyHour._id}`}>Details</Link>
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>

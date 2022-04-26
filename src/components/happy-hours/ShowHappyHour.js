@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { getOneHappyHour, removeHappyHour } from '../../api/happyHours'
+import { getOneHappyHour, removeHappyHour, updateHappyHour } from '../../api/happyHours'
 import {  Spinner, Container, Card, Button} from 'react-bootstrap'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import TagForm from '../tags/TagForm'
 import ShowTag from '../tags/ShowTag'
+import EditHappyHourModal from './EditHappyHourModal'
 
 const ShowHappyHour = (props) =>{
     const {user} = props
     const {id} = useParams()
     const [happyHour, setHappyHour] = useState(null)
+    const [modalOpen, setModalOpen] = useState(false)
     const [updated, setUpdated] = useState(false)
     const navigate = useNavigate()
 
@@ -80,7 +82,7 @@ const ShowHappyHour = (props) =>{
                 <Card.Footer>
                     {happyHour.owner._id === user._id &&
                     <>
-                        <Button className="m-2" variant="warning"> Edit </Button>
+                        <Button className="m-2" onClick={() => setModalOpen(true)} variant="warning"> Edit </Button>
                         <Button className="m-2" onClick={deleteHappyHour} variant="danger"> Delete </Button>
                     </>
                     }
@@ -96,6 +98,14 @@ const ShowHappyHour = (props) =>{
                 </div>
             }
         </Container>
+        <EditHappyHourModal 
+            happyHour = {happyHour}
+            show={modalOpen}
+            updateHappyHour = {updateHappyHour}
+            user = {user}
+            triggerRefresh = {()=> setUpdated(prev => !prev)}
+            handleClose = {() => setModalOpen(false)}
+        />
         </>
     )
 
