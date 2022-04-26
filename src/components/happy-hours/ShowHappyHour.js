@@ -35,6 +35,7 @@ const ShowHappyHour = (props) =>{
         if (happyHour.tags.length > 0){
             tagPills = happyHour.tags.map(tag => (
                 <ShowTag 
+                    key={tag._id}
                     tag={tag} 
                     user={user} 
                     happyHour={happyHour}
@@ -43,7 +44,7 @@ const ShowHappyHour = (props) =>{
         }
         if (happyHour.comments.length > 0){
             comments = happyHour.comments.map(comment => {
-                <p>{comment.note} by: {comment.author}</p>
+                <p key={comment._id}>{comment.note} by: {comment.author}</p>
             })
         }
     }

@@ -107,6 +107,14 @@ const App = () => {
 							}
 					/>
 					<Route
+						path='/happy-hours/mine'
+						element={
+							<RequireAuth user={user}>
+								<IndexHappyHours msgAlert={msgAlert} user={user} />
+							</RequireAuth>
+							}
+					/>
+					<Route
 						path='/happy-hours/:id'
 						element={
 							<RequireAuth user={user}>
