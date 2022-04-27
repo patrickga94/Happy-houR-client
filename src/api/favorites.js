@@ -11,3 +11,13 @@ export const addFavorite = (user, happyHourId) => {
         }
     })
 }
+
+export const removeFavorite = (user, happyHourId) => {
+    return axios ({
+        url: `${apiUrl}/favorites/${happyHourId}`,
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        }
+    })
+}

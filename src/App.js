@@ -145,7 +145,7 @@ const App = () => {
 						path='/happy-hours/:id'
 						element={
 							<RequireAuth user={user}>
-								<ShowHappyHour msgAlert={msgAlert} user={user} />
+								<ShowHappyHour msgAlert={msgAlert} user={user} setUser={setUser} />
 							</RequireAuth>
 							}
 					/>

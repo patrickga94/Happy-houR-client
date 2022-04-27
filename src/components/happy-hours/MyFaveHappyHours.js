@@ -15,6 +15,7 @@ const MyFaveHappyHours = (props) => {
     const {user} = props
     const [happyHours, setHappyHours] = useState(null)
     useEffect(()=>{
+        console.log('user', user)
         getFaveHappyHours(user)
             .then(res=>{
                 setHappyHours(res.data.happyHours)
@@ -24,7 +25,7 @@ const MyFaveHappyHours = (props) => {
     if(!happyHours){
         return <p>loading...</p>
     } else if (happyHours.length === 0) {
-        return <p>No happy hours here, this town is a snooze fest!</p>
+        return <p>No favorited happy hours, start adding some!</p>
     }
 
     

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getOneHappyHour, removeHappyHour, updateHappyHour } from '../../api/happyHours'
-import { addFavorite } from '../../api/favorites'
+import { addFavorite, removeFavorite } from '../../api/favorites'
 import {  Spinner, Container, Card, Button} from 'react-bootstrap'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import TagForm from '../tags/TagForm'
@@ -10,7 +10,7 @@ import CommentForm from '../comments/CommentForm'
 import ShowComment from '../comments/ShowComment'
 
 const ShowHappyHour = (props) =>{
-    const {user} = props
+    const {user, setUser} = props
     const {id} = useParams()
     const [happyHour, setHappyHour] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
@@ -24,22 +24,38 @@ const ShowHappyHour = (props) =>{
             })
     }
 
+    const triggerRefresh = () => {
+        setUpdated(prev => !prev)
+    }
+
     const faveHappyHour = () => {
         addFavorite(user, happyHour._id)
-            .then(()=>{
-                setUpdated(prev => !prev)
+            .then(res =>{
+                console.log('response', res)
+                setUser(res.data.user)
+
+            })
+            .catch(console.error)
+    }
+
+    const unFave = () => {
+        removeFavorite(user, happyHour._id)
+            .then(res =>{
+                setUser(res.data.user)
+                navigate('/')
             })
             .catch(console.error)
     }
 
 
     useEffect(()=>{
+        console.log('updated', updated)
         getOneHappyHour(id, user)
             .then(res => {
                 setHappyHour(res.data.happyHour)
             })
             .catch(console.error)
-    }, [updated, id])
+    }, [updated])
 
 
     let tagPills
@@ -106,7 +122,7 @@ const ShowHappyHour = (props) =>{
                     }
                     {happyHour.owner._id != user._id &&
                         <>
-                            <Button onClick={faveHappyHour} variant="success">Add to favorites!</Button>
+                            {user.favorites.includes(happyHour._id) ? <Button className='fave-btn' onClick={unFave} variant="danger">Remove from favorites</Button> : <Button className='fave-btn' onClick={faveHappyHour} variant="success">Add to favorites!</Button>}
                         </>
                     }
                 </Card.Footer>

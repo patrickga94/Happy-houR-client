@@ -29,3 +29,7 @@ code {
 .search-btn {
   display: inline;
 }
+
+.fave-btn:active {
+  border: 5px solid gold;
+}
