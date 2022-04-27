@@ -10,7 +10,7 @@ import CommentForm from '../comments/CommentForm'
 import ShowComment from '../comments/ShowComment'
 import axios from 'axios'
 import GoogleMapReact from 'google-map-react'
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 // import { Wrapper, Status } from "@googlemaps/react-wrapper";
 require('dotenv').config()
 const geoKey = process.env.REACT_APP_GOOGLEAPIKEY
@@ -166,9 +166,11 @@ const ShowHappyHour = (props) =>{
                         googleMapsApiKey={`${geoKey}`}>
                         <GoogleMap
                         mapContainerStyle={mapStyles}
-                        zoom={13}
+                        zoom={15}
                         center={coordinates}
-                    />
+                        >
+                        <Marker position={coordinates}/>
+                        </GoogleMap>
                     </LoadScript>
                         <h6>Tags:</h6>
                         {tagPills}
