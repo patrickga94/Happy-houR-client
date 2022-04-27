@@ -8,6 +8,9 @@ import ShowTag from '../tags/ShowTag'
 import EditHappyHourModal from './EditHappyHourModal'
 import CommentForm from '../comments/CommentForm'
 import ShowComment from '../comments/ShowComment'
+import axios from 'axios'
+require('dotenv').config()
+const geoKey = process.env.REACT_APP_GOOGLEAPIKEY
 
 const ShowHappyHour = (props) =>{
     const {user, setUser} = props
@@ -76,6 +79,18 @@ const ShowHappyHour = (props) =>{
                 <ShowComment key={comment._id}  comment={comment} happyHour={happyHour} user={user}  triggerRefresh={() => setUpdated(prev => !prev)}/>
             ))
         }
+
+        const getLocation = () => {
+            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=1729+Richmond+Street,+Chicago,+IL&key=${geoKey}`)
+                .then(responseData => {
+                    return responseData
+                })
+                .then(jsonData => {
+                    console.log(jsonData)
+                })
+                .catch(console.error)
+        }
+        getLocation()
     }
 
     if(!happyHour){
@@ -100,7 +115,7 @@ const ShowHappyHour = (props) =>{
                         <p>Deals: {happyHour.deals}</p>
                         <p>Days: {happyHour.days}</p>
                         <p>Hours: {happyHour.startTime} - {happyHour.endTime}</p>
-                        <p>Address: {happyHour.address} {happyHour.city}</p>
+                        <p>Address: {happyHour.address} {happyHour.city}, {happyHour.state}</p>
                     </Card.Text>
                         <h6>Tags:</h6>
                         {tagPills}

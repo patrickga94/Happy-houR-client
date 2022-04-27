@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { createHappyHour } from '../../api/happyHours'
+import { createHappyHour, updateHappyHour } from '../../api/happyHours'
 import { useNavigate } from 'react-router-dom'
 import HappyHourForm from '../shared/HappyHourForm'
+
 
 const CreateHappyHour = (props) => {
     const {user} = props
     const navigate = useNavigate()
-    const [happyHour, setHappyHour] = useState({name: '', address: '', city: '', deals: '', startTime: '', endTime: '', days: [] })
+    const [happyHour, setHappyHour] = useState({name: '', address: '', city: '', state: '', deals: '', startTime: '', endTime: '', days: [] })
     const handleChange = (e) => {
         // e === event
         e.persist()

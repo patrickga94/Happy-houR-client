@@ -60,6 +60,17 @@ const HappyHourForm = (props) => {
                         required
                 />
                 </Col>
+                <Col>
+                    <Form.Label>State</Form.Label>
+                        <Form.Control
+                        placeholder="State"
+                        value={happyHour.state}
+                        type="text"
+                        name='state'
+                        onChange={handleChange}
+                        required
+                />
+                </Col>
                 <br></br>
                 <Col>
                     <Form.Label>Days offered</Form.Label>
