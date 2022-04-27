@@ -17,6 +17,7 @@ const ShowHappyHour = (props) =>{
     const {id} = useParams()
     const [happyHour, setHappyHour] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
+    const [coordinates, setCoordinates] = useState({})
     const [updated, setUpdated] = useState(false)
     const navigate = useNavigate()
 
@@ -25,10 +26,6 @@ const ShowHappyHour = (props) =>{
             .then(()=>{
                 navigate('/happy-hours')
             })
-    }
-
-    const triggerRefresh = () => {
-        setUpdated(prev => !prev)
     }
 
     const faveHappyHour = () => {
@@ -52,7 +49,7 @@ const ShowHappyHour = (props) =>{
 
 
     useEffect(()=>{
-        console.log('updated', updated)
+        // console.log('updated', updated)
         getOneHappyHour(id, user)
             .then(res => {
                 setHappyHour(res.data.happyHour)
@@ -60,10 +57,30 @@ const ShowHappyHour = (props) =>{
             .catch(console.error)
     }, [updated])
 
+    useEffect(()=>{
+        
+        const getLocation = () => {
+            console.log('address new', newAddress)
+            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${newAddress}&key=${geoKey}`)
+                .then(responseData => {
+                    return responseData
+                })
+                .then(jsonData => {
+                    console.log(jsonData)
+                    setCoordinates(jsonData.data.results[0].geometry.location)
+                    return
+                })
+                .catch(console.error)
+        }
+        getLocation()
+    }, [happyHour])
+
 
     let tagPills
     let comments
+    let newAddress 
     if(happyHour){
+        newAddress = `${happyHour.address.replace(/ /g, '+')},+${happyHour.city},+${happyHour.state}`
         if (happyHour.tags.length > 0){
             tagPills = happyHour.tags.map(tag => (
                 <ShowTag 
@@ -80,17 +97,6 @@ const ShowHappyHour = (props) =>{
             ))
         }
 
-        const getLocation = () => {
-            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=1729+Richmond+Street,+Chicago,+IL&key=${geoKey}`)
-                .then(responseData => {
-                    return responseData
-                })
-                .then(jsonData => {
-                    console.log(jsonData)
-                })
-                .catch(console.error)
-        }
-        getLocation()
     }
 
     if(!happyHour){
@@ -102,6 +108,9 @@ const ShowHappyHour = (props) =>{
             </Container>
         )
     }
+
+
+
 
     return(
         <>
