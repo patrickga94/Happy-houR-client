@@ -9,6 +9,9 @@ import EditHappyHourModal from './EditHappyHourModal'
 import CommentForm from '../comments/CommentForm'
 import ShowComment from '../comments/ShowComment'
 import axios from 'axios'
+import GoogleMapReact from 'google-map-react'
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
+// import { Wrapper, Status } from "@googlemaps/react-wrapper";
 require('dotenv').config()
 const geoKey = process.env.REACT_APP_GOOGLEAPIKEY
 
@@ -20,6 +23,8 @@ const ShowHappyHour = (props) =>{
     const [coordinates, setCoordinates] = useState({})
     const [updated, setUpdated] = useState(false)
     const navigate = useNavigate()
+
+
 
     const deleteHappyHour = () =>{
         removeHappyHour(user, happyHour._id)
@@ -47,6 +52,11 @@ const ShowHappyHour = (props) =>{
             .catch(console.error)
     }
 
+    const mapStyles = {
+        height: "400px",
+        width: "400px"
+    }
+
 
     useEffect(()=>{
         // console.log('updated', updated)
@@ -57,6 +67,7 @@ const ShowHappyHour = (props) =>{
             .catch(console.error)
     }, [updated])
 
+    let googleMap
     useEffect(()=>{
         
         const getLocation = () => {
@@ -73,12 +84,37 @@ const ShowHappyHour = (props) =>{
                 .catch(console.error)
         }
         getLocation()
+        // googleMap = (
+        //     <LoadScript
+        //     googleMapsApiKey={`${geoKey}`}>
+        //      <GoogleMap
+        //        mapContainerStyle={mapStyles}
+        //        zoom={13}
+        //        center={coordinates}
+        //      />
+        //     </LoadScript>
+        // )
     }, [happyHour])
+
+    // useEffect(()=>{
+    //     console.log('coordinates', coordinates)
+    //     console.log('heres the map')
+    //     googleMap = (
+    //         <div className="google-map">
+    //         <GoogleMapReact
+    //             bootstrapURLKeys={{ key: `${geoKey}` }}
+    //             defaultCenter={coordinates}
+    //             defaultZoom={10}
+    //         > </GoogleMapReact>
+    //         </div>
+    //     )
+    // }, [coordinates])
 
 
     let tagPills
     let comments
-    let newAddress 
+    let newAddress
+
     if(happyHour){
         newAddress = `${happyHour.address.replace(/ /g, '+')},+${happyHour.city},+${happyHour.state}`
         if (happyHour.tags.length > 0){
@@ -126,6 +162,14 @@ const ShowHappyHour = (props) =>{
                         <p>Hours: {happyHour.startTime} - {happyHour.endTime}</p>
                         <p>Address: {happyHour.address} {happyHour.city}, {happyHour.state}</p>
                     </Card.Text>
+                    <LoadScript
+                        googleMapsApiKey={`${geoKey}`}>
+                        <GoogleMap
+                        mapContainerStyle={mapStyles}
+                        zoom={13}
+                        center={coordinates}
+                    />
+                    </LoadScript>
                         <h6>Tags:</h6>
                         {tagPills}
 

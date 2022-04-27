@@ -30,6 +30,7 @@ code {
   display: inline;
 }
 
-.fave-btn:active {
-  border: 5px solid gold;
+.google-map {
+  height: 400px;
+  width: 400px;
 }
