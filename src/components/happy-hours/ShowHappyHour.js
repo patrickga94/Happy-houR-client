@@ -20,7 +20,7 @@ const ShowHappyHour = (props) =>{
     const {id} = useParams()
     const [happyHour, setHappyHour] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
-    const [coordinates, setCoordinates] = useState({})
+    const [coordinates, setCoordinates] = useState({lat: 0, lng:0})
     const [updated, setUpdated] = useState(false)
     const navigate = useNavigate()
 
@@ -67,7 +67,7 @@ const ShowHappyHour = (props) =>{
             .catch(console.error)
     }, [updated])
 
-    let googleMap
+    let placeID
     useEffect(()=>{
         
         const getLocation = () => {
@@ -79,36 +79,24 @@ const ShowHappyHour = (props) =>{
                 .then(jsonData => {
                     console.log(jsonData)
                     setCoordinates(jsonData.data.results[0].geometry.location)
+                    placeID = jsonData.data.results[0].place_id
+                    console.log('place id new', placeID)
                     return
                 })
                 .catch(console.error)
         }
         getLocation()
-        // googleMap = (
-        //     <LoadScript
-        //     googleMapsApiKey={`${geoKey}`}>
-        //      <GoogleMap
-        //        mapContainerStyle={mapStyles}
-        //        zoom={13}
-        //        center={coordinates}
-        //      />
-        //     </LoadScript>
-        // )
+        // const getDetails = () => {
+        //     console.log('place id', placeID)
+        // }
+        // getDetails()
+        
+
     }, [happyHour])
 
-    // useEffect(()=>{
-    //     console.log('coordinates', coordinates)
-    //     console.log('heres the map')
-    //     googleMap = (
-    //         <div className="google-map">
-    //         <GoogleMapReact
-    //             bootstrapURLKeys={{ key: `${geoKey}` }}
-    //             defaultCenter={coordinates}
-    //             defaultZoom={10}
-    //         > </GoogleMapReact>
-    //         </div>
-    //     )
-    // }, [coordinates])
+
+
+
 
 
     let tagPills
@@ -166,7 +154,7 @@ const ShowHappyHour = (props) =>{
                         googleMapsApiKey={`${geoKey}`}>
                         <GoogleMap
                         mapContainerStyle={mapStyles}
-                        zoom={15}
+                        zoom={17}
                         center={coordinates}
                         >
                         <Marker position={coordinates}/>
