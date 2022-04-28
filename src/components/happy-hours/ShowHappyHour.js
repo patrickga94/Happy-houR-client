@@ -21,6 +21,7 @@ const ShowHappyHour = (props) =>{
     const [happyHour, setHappyHour] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
     const [coordinates, setCoordinates] = useState({lat: 0, lng:0})
+    const [placeId, setPlaceId] = useState(null)
     const [updated, setUpdated] = useState(false)
     const navigate = useNavigate()
 
@@ -53,8 +54,8 @@ const ShowHappyHour = (props) =>{
     }
 
     const mapStyles = {
-        height: "400px",
-        width: "400px"
+        height: "75vh",
+        width: "75vh"
     }
 
 
@@ -67,7 +68,6 @@ const ShowHappyHour = (props) =>{
             .catch(console.error)
     }, [updated])
 
-    let placeID
     useEffect(()=>{
         
         const getLocation = () => {
@@ -78,21 +78,31 @@ const ShowHappyHour = (props) =>{
                 })
                 .then(jsonData => {
                     console.log(jsonData)
+                    setPlaceId(jsonData.data.results[0].place_id)
                     setCoordinates(jsonData.data.results[0].geometry.location)
-                    placeID = jsonData.data.results[0].place_id
-                    console.log('place id new', placeID)
                     return
                 })
                 .catch(console.error)
         }
         getLocation()
-        // const getDetails = () => {
-        //     console.log('place id', placeID)
-        // }
-        // getDetails()
         
 
     }, [happyHour])
+
+    useEffect(()=>{
+        if(coordinates.lat != 0){
+            console.log('place Id after', placeId)
+            // axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${geoKey}`)
+            //     .then(responseData => {
+            //         return responseData
+            //     })
+            //     .then(jsonData => {
+            //         console.log('place info', jsonData)
+            //     })
+            //     .catch(console.error)
+
+        }
+    }, [coordinates])
 
 
 
@@ -150,16 +160,18 @@ const ShowHappyHour = (props) =>{
                         <p>Hours: {happyHour.startTime} - {happyHour.endTime}</p>
                         <p>Address: {happyHour.address} {happyHour.city}, {happyHour.state}</p>
                     </Card.Text>
-                    <LoadScript
-                        googleMapsApiKey={`${geoKey}`}>
-                        <GoogleMap
-                        mapContainerStyle={mapStyles}
-                        zoom={17}
-                        center={coordinates}
-                        >
-                        <Marker position={coordinates}/>
-                        </GoogleMap>
-                    </LoadScript>
+                    <div className="map-container">
+                        <LoadScript
+                            googleMapsApiKey={`${geoKey}`}>
+                            <GoogleMap
+                            mapContainerStyle={mapStyles}
+                            zoom={17}
+                            center={coordinates}
+                            >
+                            <Marker position={coordinates}/>
+                            </GoogleMap>
+                        </LoadScript>
+                    </div>
                         <h6>Tags:</h6>
                         {tagPills}
 
