@@ -23,6 +23,7 @@ const ShowHappyHour = (props) =>{
     const [modalOpen, setModalOpen] = useState(false)
     const [neighborhood, setNeighborhood] = useState(null)
     const [rating, setRating] = useState('...')
+    const [isOpen, setIsOpen] = useState(false)
     const [coordinates, setCoordinates] = useState({lat: 0, lng:0})
     const [placeId, setPlaceId] = useState(null)
     const [updated, setUpdated] = useState(false)
@@ -103,6 +104,7 @@ const ShowHappyHour = (props) =>{
                 .then(response => {
                     console.log('place details', response)
                     setRating(response.data.candidates[0].rating)
+                    setIsOpen(response.data.candidates[0].opening_hours.open_now)
                 })
                 .catch(console.error)
         }
@@ -158,12 +160,16 @@ const ShowHappyHour = (props) =>{
                     <h2>{happyHour.name} at {happyHour.owner.username} </h2>
                 </Card.Header>
                 <Card.Body>
-                    <Card.Text>
+                    <Card.Text className='d-flex justify-content-center'>
+                        <div>
                         <p><strong>Deals:</strong> {happyHour.deals}</p>
                         <p><strong>Days: </strong>{happyHour.days}</p>
                         <p><strong>Hours:</strong> {happyHour.startTime} - {happyHour.endTime}</p>
                         <p><strong>Address:</strong> {happyHour.address} {happyHour.city}, {happyHour.state}</p>
-                        <p><strong>Rating: </strong> {rating} </p>
+                        <p><strong>Visitor Rating: </strong> {rating} </p>
+                        {isOpen ? <p style={{color: 'green'}}><strong>Open</strong></p> : <p style={{color: 'red'}}><strong>Closed</strong></p>}
+                        </div>
+                            
                         <hr></hr>
                     </Card.Text>
                     <div id='display-card'>
