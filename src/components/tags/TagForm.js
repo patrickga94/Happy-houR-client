@@ -42,15 +42,21 @@ const TagForm = (props) => {
 
     return (
         <Container className="justify-content-center w-75 mt-5">
-        <Form onSubmit={handleSubmit}>
-            <Form.Label>Add a tag</Form.Label>
-            <Form.Control 
-                placeholder="OYSTERS"        
-                value={tag.tag}
-                name='tag'
-                onChange={handleChange}
-            />
-            <Button type='submit' className='float-end m-2' >Submit</Button>
+        <Form onSubmit={handleSubmit} className="row row-cols-lg-auto g-3 align-items-center">
+            <div className='col-12'>
+                <Form.Label >Add a tag</Form.Label>
+            </div>
+            <div className="col-12">
+                <Form.Control 
+                    placeholder="OYSTERS"        
+                    value={tag.tag}
+                    name='tag'
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="col-12">
+                <Button type='submit' >Add</Button>
+            </div>
         </Form>
     </Container> 
     )

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getOneHappyHour, removeHappyHour, updateHappyHour } from '../../api/happyHours'
+import { getPlaceDetails } from '../../api/places'
 import { addFavorite, removeFavorite } from '../../api/favorites'
 import {  Spinner, Container, Card, Button} from 'react-bootstrap'
 import { Link, useParams, useNavigate } from 'react-router-dom'
@@ -20,6 +21,8 @@ const ShowHappyHour = (props) =>{
     const {id} = useParams()
     const [happyHour, setHappyHour] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
+    const [neighborhood, setNeighborhood] = useState(null)
+    const [rating, setRating] = useState('...')
     const [coordinates, setCoordinates] = useState({lat: 0, lng:0})
     const [placeId, setPlaceId] = useState(null)
     const [updated, setUpdated] = useState(false)
@@ -80,6 +83,7 @@ const ShowHappyHour = (props) =>{
                     console.log(jsonData)
                     setPlaceId(jsonData.data.results[0].place_id)
                     setCoordinates(jsonData.data.results[0].geometry.location)
+                    setNeighborhood(jsonData.data.results[0].address_components[2].long_name)
                     return
                 })
                 .catch(console.error)
@@ -89,20 +93,20 @@ const ShowHappyHour = (props) =>{
 
     }, [happyHour])
 
+    let placeName 
     useEffect(()=>{
         if(coordinates.lat != 0){
             console.log('place Id after', placeId)
-            // axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${geoKey}`)
-            //     .then(responseData => {
-            //         return responseData
-            //     })
-            //     .then(jsonData => {
-            //         console.log('place info', jsonData)
-            //     })
-            //     .catch(console.error)
-
+            placeName = `${happyHour.owner.username}+${neighborhood}+${happyHour.city}`
+            console.log('placeName', placeName)
+            getPlaceDetails(placeName, geoKey)
+                .then(response => {
+                    console.log('place details', response)
+                    setRating(response.data.candidates[0].rating)
+                })
+                .catch(console.error)
         }
-    }, [coordinates])
+    }, [neighborhood])
 
 
 
@@ -150,27 +154,31 @@ const ShowHappyHour = (props) =>{
         <>
         <Container className="fluid">
             <Card className="shadow p-3 mb-5 bg-body rounded mt-3">
-                <Card.Header>
+                <Card.Header className='d-flex justify-content-center'>
                     <h2>{happyHour.name} at {happyHour.owner.username} </h2>
                 </Card.Header>
                 <Card.Body>
                     <Card.Text>
-                        <p>Deals: {happyHour.deals}</p>
-                        <p>Days: {happyHour.days}</p>
-                        <p>Hours: {happyHour.startTime} - {happyHour.endTime}</p>
-                        <p>Address: {happyHour.address} {happyHour.city}, {happyHour.state}</p>
+                        <p><strong>Deals:</strong> {happyHour.deals}</p>
+                        <p><strong>Days: </strong>{happyHour.days}</p>
+                        <p><strong>Hours:</strong> {happyHour.startTime} - {happyHour.endTime}</p>
+                        <p><strong>Address:</strong> {happyHour.address} {happyHour.city}, {happyHour.state}</p>
+                        <p><strong>Rating: </strong> {rating} </p>
+                        <hr></hr>
                     </Card.Text>
-                    <div className="map-container">
-                        <LoadScript
-                            googleMapsApiKey={`${geoKey}`}>
-                            <GoogleMap
-                            mapContainerStyle={mapStyles}
-                            zoom={17}
-                            center={coordinates}
-                            >
-                            <Marker position={coordinates}/>
-                            </GoogleMap>
-                        </LoadScript>
+                    <div id='display-card'>
+                        <div className="map-container">
+                            <LoadScript
+                                googleMapsApiKey={`${geoKey}`}>
+                                <GoogleMap
+                                mapContainerStyle={mapStyles}
+                                zoom={17}
+                                center={coordinates}
+                                >
+                                <Marker position={coordinates}/>
+                                </GoogleMap>
+                            </LoadScript>
+                        </div>
                     </div>
                         <h6>Tags:</h6>
                         {tagPills}
@@ -179,20 +187,24 @@ const ShowHappyHour = (props) =>{
                 <Card.Footer>
                     {happyHour.owner._id === user._id &&
                     <>
-                        <Button className="m-2" onClick={() => setModalOpen(true)} variant="warning"> Edit </Button>
-                        <Button className="m-2" onClick={deleteHappyHour} variant="danger"> Delete </Button>
-                        <div className='tag form'>
+                        <div >
                             <TagForm
                                 happyHour = {happyHour}
                                 triggerRefresh = {() => setUpdated(prev => !prev)}
                                 user = {user}
                             />
                         </div>
+                        <div className="d-grid mt-2">
+                            <Button className="" onClick={() => setModalOpen(true)} variant="warning"> Edit </Button>
+                            <Button className="mt-2" onClick={deleteHappyHour} variant="danger"> Delete </Button>
+                        </div>
                     </>
                     }
                     {happyHour.owner._id != user._id &&
                         <>
-                            {user.favorites.includes(happyHour._id) ? <Button className='fave-btn' onClick={unFave} variant="danger">Remove from favorites</Button> : <Button className='fave-btn' onClick={faveHappyHour} variant="success">Add to favorites!</Button>}
+                            <div className="d-grid">
+                                {user.favorites.includes(happyHour._id) ? <Button className='' onClick={unFave} variant="danger">Remove from favorites</Button> : <Button className='fave-btn' onClick={faveHappyHour} variant="success">Add to favorites!</Button>}
+                            </div>
                         </>
                     }
                 </Card.Footer>
