@@ -185,8 +185,8 @@ const ShowHappyHour = (props) =>{
                             </LoadScript>
                         </div>
                     </div>
-                        <h6>Tags:</h6>
-                        {tagPills}
+                        <h6>Tags: {tagPills}</h6>
+                       
 
                 </Card.Body>
                 <Card.Footer>
@@ -215,6 +215,7 @@ const ShowHappyHour = (props) =>{
                 </Card.Footer>
             </Card>
             <div  id='comment-box'>
+                <h3 className='text-center'>Comments:</h3>
                 {comments}
                 <CommentForm 
                     user = {user}

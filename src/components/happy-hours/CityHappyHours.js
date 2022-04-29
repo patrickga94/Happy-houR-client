@@ -54,7 +54,11 @@ const CityHappyHours = (props) => {
     if(!happyHours){
         return <p>loading...</p>
     } else if (happyHours.length === 0) {
-        return <p>No happy hours here, this town is a snooze fest!</p>
+        return (
+            <>
+                <h1 className='empty'>No happy hours here, this town is a snooze fest!</h1>
+            </>
+            )
     }
 
     
@@ -86,26 +90,28 @@ const CityHappyHours = (props) => {
     }
     return (
         <>
-        <div className="d-flex flex-column justify-content-center">
+        <div className="d-flex flex-column justify-content-center" id='city-header'>
 
             <div className='title'>
                 <h1 className='text-center'>{city} Happy Hours</h1>
             </div>
             <div className="search-box">
-                <h3 className='text-center'>Search for happy hours by tags:</h3>
-                <Form onSubmit={handleTagSubmit} className='row gy-2 gx-3 align-items-center'>
+                <h3 className='text-center'>Search by tags:</h3>
+                <Form onSubmit={handleTagSubmit}>
                                 <Form.Control
                                     placeholder="Search"
                                     name='tag'
                                     onChange={handleChange}
                                 />
-                                <Button className="search-btn" type="submit">Search</Button>
+                                <div className="d-grid m-2">
+                                    <Button className="search-btn" type="submit">Search</Button>
+                                </div>
                             </Form>
             </div>
+        </div>
             <div style={cardContainerLayout}>
                 {happyHourCards}
             </div>
-        </div>
         </>
     )
 

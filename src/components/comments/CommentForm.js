@@ -31,16 +31,16 @@ const CommentForm = (props) => {
 
     return (
         <Container className="justify-content-center w-75 mt-5">
-            <h3>Comments</h3>
             <Form onSubmit={handleSubmit}>
-                <Form.Label>Add a comment</Form.Label>
                 <Form.Control 
-                    placeholder="..."        
+                    placeholder="Add a comment"        
                     value={comment.note}
                     name='note'
                     onChange={handleChange}
                 />
-                <Button type='submit' className='float-end m-2' >Submit</Button>
+                <div className="d-grid">
+                    <Button type='submit' className='float-end m-2' >Submit</Button>
+                </div>
             </Form>
         </Container>
     )

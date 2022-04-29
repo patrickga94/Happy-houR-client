@@ -25,7 +25,9 @@ const MyFaveHappyHours = (props) => {
     if(!happyHours){
         return <p>loading...</p>
     } else if (happyHours.length === 0) {
-        return <p>No favorited happy hours, start adding some!</p>
+        return (
+            <h1 className='empty'>No favorited happy hours, start adding some!</h1>
+            )
     }
 
     
@@ -57,7 +59,7 @@ const MyFaveHappyHours = (props) => {
     }
     return (
         <>
-        <div className='title'>
+        <div className='empty'>
             <h1>{user.username}'s Favorited Happy Hours</h1>
         </div>
         <div style={cardContainerLayout}>

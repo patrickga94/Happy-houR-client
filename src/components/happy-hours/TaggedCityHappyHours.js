@@ -24,7 +24,9 @@ const TaggedCityHappyHours = (props) => {
     if(!happyHours){
         return <p>loading...</p>
     } else if (happyHours.length === 0) {
-        return <p>No happy hours here, this town is a snooze fest!</p>
+        return (
+            <h1 className='empty'>No happy hours here with that tag, bummer!</h1>
+        )
     }
 
     
@@ -56,8 +58,8 @@ const TaggedCityHappyHours = (props) => {
     }
     return (
         <>
-        <div className='title'>
-            <h1>{city} Happy Hours with {tag}</h1>
+        <div className='empty'>
+            <h1 className='text-center'>{city} Happy Hours with {tag}</h1>
         </div>
         <div style={cardContainerLayout}>
             {happyHourCards}

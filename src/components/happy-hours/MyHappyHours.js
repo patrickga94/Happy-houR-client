@@ -24,7 +24,9 @@ const MyHappyHours = (props) => {
     if(!happyHours){
         return <p>loading...</p>
     } else if (happyHours.length === 0) {
-        return <p>No happy hours here, add one!</p>
+        return (
+            <h1>No happy hours here, add one!</h1>
+        )
     }
 
     
