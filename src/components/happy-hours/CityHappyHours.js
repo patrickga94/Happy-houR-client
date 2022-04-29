@@ -86,20 +86,25 @@ const CityHappyHours = (props) => {
     }
     return (
         <>
-        <div className='title'>
-            <h1>{city} Happy Hours</h1>
-        </div>
-        <h3>Search for happy hours by tags:</h3>
-        <Form onSubmit={handleTagSubmit} className='row gy-2 gx-3 align-items-center'>
-						<Form.Control
-							placeholder="Search"
-							name='tag'
-							onChange={handleChange}
-						/>
-						<Button className="search-btn" type="submit">Search</Button>
-					</Form>
-        <div style={cardContainerLayout}>
-            {happyHourCards}
+        <div className="d-flex flex-column justify-content-center">
+
+            <div className='title'>
+                <h1 className='text-center'>{city} Happy Hours</h1>
+            </div>
+            <div className="search-box">
+                <h3 className='text-center'>Search for happy hours by tags:</h3>
+                <Form onSubmit={handleTagSubmit} className='row gy-2 gx-3 align-items-center'>
+                                <Form.Control
+                                    placeholder="Search"
+                                    name='tag'
+                                    onChange={handleChange}
+                                />
+                                <Button className="search-btn" type="submit">Search</Button>
+                            </Form>
+            </div>
+            <div style={cardContainerLayout}>
+                {happyHourCards}
+            </div>
         </div>
         </>
     )

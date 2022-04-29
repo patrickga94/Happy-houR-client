@@ -56,8 +56,8 @@ const GuestSignIn = (props) => {
 
     return (
         <div className='row'>
-            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3>Sign In</h3>
+            <div className='col-sm-10 col-md-8 mx-auto mt-5' id='guest-signin'>
+                <h3 className='text-center'>Guest Sign In</h3>
                 <Form onSubmit={onSignIn}>
                     <Form.Group controlId='email'>
                         <Form.Label>Email address</Form.Label>
@@ -81,9 +81,11 @@ const GuestSignIn = (props) => {
                             onChange={e => setPassword(e.target.value)}
                         />
                     </Form.Group>
-                    <Button variant='primary' type='submit'>
-                        Submit
-                    </Button>
+                    <div className='d-grid mt-2'>
+                        <Button variant='info' type='submit'>
+                            Submit
+                        </Button>
+                    </div>
                 </Form>
             </div>
         </div>
