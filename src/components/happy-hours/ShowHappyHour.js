@@ -34,7 +34,7 @@ const ShowHappyHour = (props) =>{
     const deleteHappyHour = () =>{
         removeHappyHour(user, happyHour._id)
             .then(()=>{
-                navigate('/happy-hours')
+                navigate('/')
             })
     }
 
@@ -52,7 +52,6 @@ const ShowHappyHour = (props) =>{
         removeFavorite(user, happyHour._id)
             .then(res =>{
                 setUser(res.data.user)
-                // navigate('/')
             })
             .catch(console.error)
     }

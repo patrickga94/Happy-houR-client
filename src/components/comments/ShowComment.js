@@ -18,7 +18,7 @@ const ShowComment = (props) => {
     
     return (
         <>
-            <Card className="m-2 w-50 shadow p-3 mb-5 bg-body rounded justify-content-center">
+            <Card className="m-2 w-50 shadow p-3 mb-2 bg-body rounded justify-content-center">
                 <Card.Header>
                     by: {comment.author} {comment.owner == happyHour.owner._id ? <span><strong>Owner</strong></span> : null}
                     {/* gives the option to delete a comment if the user is the owner of that comment */}
