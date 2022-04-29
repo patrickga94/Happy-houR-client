@@ -92,7 +92,7 @@ const Header = ({ user }) => {
 		authenticatedOptions = (user.isGuest ? guestAuthenticatedOptions : estabAuthenticatedOptions)
 	}
 	return (
-		<Navbar bg='primary' variant='dark' expand='md'>
+		<Navbar  variant='dark' id="navbar" expand='md'>
 			<Navbar.Brand>
 				<Link to='/' className='m-2' style={linkStyle}>
 					Happy houR
