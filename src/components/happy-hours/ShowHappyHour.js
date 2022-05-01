@@ -185,7 +185,7 @@ const ShowHappyHour = (props) =>{
                             </LoadScript>
                         </div>
                     </div>
-                        <h6>Tags: {tagPills}</h6>
+                        <h6 className='mt-2'>Tags: {tagPills}</h6>
                        
 
                 </Card.Body>

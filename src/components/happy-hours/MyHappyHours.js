@@ -25,7 +25,7 @@ const MyHappyHours = (props) => {
         return <p>loading...</p>
     } else if (happyHours.length === 0) {
         return (
-            <h1>No happy hours here, add one!</h1>
+            <h1 className='empty'>No happy hours here, add one!</h1>
         )
     }
 
@@ -58,7 +58,7 @@ const MyHappyHours = (props) => {
     }
     return (
         <>
-        <div className='title'>
+        <div className='empty'>
             <h1>{user.username} Happy Hours: </h1>
         </div>
         <div style={cardContainerLayout}>
