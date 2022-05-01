@@ -31,7 +31,7 @@ const TaggedCityHappyHours = (props) => {
 
     
     let tagPills
-
+    let days
     let happyHourCards
     if(happyHours.length > 0){
         happyHourCards = happyHours.map(happyHour => {
@@ -40,12 +40,16 @@ const TaggedCityHappyHours = (props) => {
                         <span key={tag._id}>{tag.tag.toUpperCase()} </span>
                     ))
                 }
+                days = happyHour.days.map(day => (
+                    <span key={day.index}> {day} </span>
+                ))
             return (
                 <Card key={happyHour._id} style={{width: '30%' }} className="m-2 shadow p-3 mb-5 bg-body rounded">
                 <Card.Header>{happyHour.name} at {happyHour.owner.username}</Card.Header>
                 <Card.Body>
                     <Card.Text>
                         <p>{happyHour.address}, {happyHour.city}</p>
+                        <p>Days: {days} </p>
                         <Link className='viewHappyHour' to={`/happy-hours/${happyHour._id}`}>Details</Link>
                     </Card.Text>
                 </Card.Body>
