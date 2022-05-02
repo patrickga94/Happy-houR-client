@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom'
 
 import {Button, ButtonGroup} from 'react-bootstrap'
 
-import { signOut } from '../../api/auth'
+import { signOut } from '../../api/guest-auth'
 import messages from '../shared/AutoDismissAlert/messages'
 
-const SignOut = (props) => {
+const GuestSignOut = (props) => {
 	const { msgAlert, clearUser, user } = props
     console.log(props)
 
@@ -31,21 +31,21 @@ const SignOut = (props) => {
 	return (
 		<>
             <div className='row'>
-                <div className='col-sm-10 col-md-8 mx-auto mt-5'>
+                <div className='signout'>
                     <h2>Are you sure you want to sign out?</h2>
                     <small>We hate to see you go...</small><br/>
-                    <ButtonGroup>
+                    <div className="d-grid gap-2">
                         <Button variant='danger' onClick={onSignOut}>
                             Sign Out
                         </Button>
                         <Button variant='warning' onClick={onCancel}>
                             Cancel
                         </Button>
-                    </ButtonGroup>
+                    </div>
                 </div>
             </div>
 		</>
 	)
 }
 
-export default SignOut
+export default GuestSignOut

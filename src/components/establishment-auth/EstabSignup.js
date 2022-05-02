@@ -2,13 +2,13 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { signUp, signIn } from '../../api/auth'
+import { signUp, signIn } from '../../api/establishment-auth'
 import messages from '../shared/AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-const SignUp = (props) => {
+const EstabSignUp = (props) => {
 	// constructor(props) {
 	// 	super(props)
 
@@ -20,6 +20,7 @@ const SignUp = (props) => {
 	// }    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [username, setUsername] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
     const navigate = useNavigate()
@@ -29,7 +30,7 @@ const SignUp = (props) => {
 
 		const { msgAlert, setUser } = props
 
-        const credentials = {email, password, passwordConfirmation}
+        const credentials = {email, password, username, passwordConfirmation}
 
 		signUp(credentials)
 			.then(() => signIn(credentials))
@@ -45,6 +46,7 @@ const SignUp = (props) => {
 			.catch((error) => {
                 setEmail('')
                 setPassword('')
+                setUsername('')
                 setPasswordConfirmation('')
 				msgAlert({
 					heading: 'Sign Up Failed with error: ' + error.message,
@@ -57,8 +59,8 @@ const SignUp = (props) => {
 
     return (
         <div className='row'>
-            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3>Sign Up</h3>
+            <div className='col-sm-10 col-md-8 mx-auto mt-5' id='estab-signup'>
+                <h3 className='text-center'>Establishment Sign Up</h3>
                 <Form onSubmit={onSignUp}>
                     <Form.Group controlId='email'>
                         <Form.Label>Email address</Form.Label>
@@ -69,6 +71,17 @@ const SignUp = (props) => {
                             value={email}
                             placeholder='Enter email'
                             onChange={e => setEmail(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='username'>
+                        <Form.Label>Establishment Name</Form.Label>
+                        <Form.Control
+                            required
+                            type='text'
+                            name='username'
+                            value={username}
+                            placeholder='Enter bar/restaurant name'
+                            onChange={e => setUsername(e.target.value)}
                         />
                     </Form.Group>
                     <Form.Group controlId='password'>
@@ -93,9 +106,11 @@ const SignUp = (props) => {
                             onChange={e => setPasswordConfirmation(e.target.value)}
                         />
                     </Form.Group>
-                    <Button variant='primary' type='submit'>
-                        Submit
-                    </Button>
+                    <div className="d-grid mt-2">
+                        <Button variant='primary' type='submit'>
+                            Submit
+                        </Button>
+                    </div>
                 </Form>
             </div>
         </div>
@@ -103,4 +118,4 @@ const SignUp = (props) => {
 
 }
 
-export default SignUp
+export default EstabSignUp
