@@ -24,19 +24,31 @@ Welcome to Happy houR! An app for connecting restaurants and bars with fun lovin
 - Express
 - React
 - Node.js
-- Mapbox
+- Google Maps API
+- Google Geocoding API
+- Google Places API
+- @react-google-maps/api
+- Hero patterns by Steve Schoger (https://heropatterns.com/)
 - CSS
 - Bootstrap
 
 ### Included Routes
 
-This template comes with a handful of front-end routes that display
-different components for user actions.
-
 | Endpoint         | Component | `AuthenticatedRoute`? |
 |------------------|-------------------|-------|
-| `/sign-up`       | `SignUp`    | No |
-| `/sign-in`       | `SignIn`    | No |
-| `/change-password` | `ChangePassword`  | Yes |
-| `/sign-out`        | `SignOut`   | Yes |
+| `/establishment/sign-up`       | `EstabSignUp`    | No |
+| `/establishment/sign-in`       | `EstabSignIn`    | No |
+| `/establishment/change-password` | `EstabChangePassword`  | Yes |
+| `/establishment/sign-out`        | `EstabSignOut`   | Yes |
+| `/guest/sign-up`       | `GuestSignUp`    | No |
+| `/guest/sign-in`       | `GuestSignIn`    | No |
+| `/guest/change-password` | `GuestChangePassword`  | Yes |
+| `/guest/sign-out`        | `GuestSignOut`   | Yes |
+| `/happy-hours` | `IndexHappyHours`  | Yes |
+| `/happy-hours/index/:city/:tag`        | `TaggedCityHappyHours`   | Yes |
+| `/happy-hours/:city` | `CityHappyHours`  | Yes |
+| `/happy-hours/mine`        | `IndexHappyHours`   | Yes |
+| `/happy-hours/favorites` | `MyFaveHappyHours`  | Yes |
+| `/happy-hours/:id`        | `ShowHappyHour`   | Yes |
+| `/add-happy-hour` | `CreateHappyHour`  | Yes |
 
