@@ -95,17 +95,19 @@ const ShowHappyHour = (props) =>{
 
     let placeName 
     useEffect(()=>{
-        if(coordinates.lat != 0){
-            console.log('place Id after', placeId)
-            placeName = `${happyHour.owner.username}+${neighborhood}+${happyHour.city}`
-            console.log('placeName', placeName)
-            getPlaceDetails(placeName, geoKey)
-                .then(response => {
-                    console.log('place details', response)
-                    setRating(response.data.candidates[0].rating)
-                    setIsOpen(response.data.candidates[0].opening_hours.open_now)
-                })
-                .catch(console.error)
+        if(happyHour){
+            if(coordinates.lat != 0){
+                console.log('place Id after', placeId)
+                placeName = `${happyHour.owner.username}+${neighborhood}+${happyHour.city}`
+                console.log('placeName', placeName)
+                getPlaceDetails(placeName, geoKey)
+                    .then(response => {
+                        console.log('place details', response)
+                        setRating(response.data.candidates[0].rating)
+                        setIsOpen(response.data.candidates[0].opening_hours.open_now)
+                    })
+                    .catch(console.error)
+            }
         }
     }, [neighborhood])
 
