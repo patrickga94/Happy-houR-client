@@ -74,6 +74,7 @@ const ShowHappyHour = (props) =>{
         
         const getLocation = () => {
             console.log('address new', newAddress)
+            // call the api to get latitude and longitude as well as place id
             axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${newAddress}&key=${geoKey}`)
                 .then(responseData => {
                     return responseData
