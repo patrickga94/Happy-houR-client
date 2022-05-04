@@ -96,7 +96,7 @@ const ShowHappyHour = (props) =>{
     let placeName 
     useEffect(()=>{
         if(happyHour){
-            if(coordinates.lat != 0){
+            if(coordinates.lat !== 0){
                 console.log('place Id after', placeId)
                 placeName = `${happyHour.owner.username}+${neighborhood}+${happyHour.city}`
                 console.log('placeName', placeName)
