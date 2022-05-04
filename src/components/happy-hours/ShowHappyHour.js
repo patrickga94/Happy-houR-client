@@ -10,7 +10,6 @@ import EditHappyHourModal from './EditHappyHourModal'
 import CommentForm from '../comments/CommentForm'
 import ShowComment from '../comments/ShowComment'
 import axios from 'axios'
-import GoogleMapReact from 'google-map-react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 // import { Wrapper, Status } from "@googlemaps/react-wrapper";
 require('dotenv').config()

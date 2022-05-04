@@ -67,11 +67,11 @@ const Header = ({ user }) => {
 		
 		const estabAuthenticatedOptions = (
 			<>
-				<Nav.Item className='m-2' >
+				{/* <Nav.Item className='m-2' >
 					<Link to='happy-hours' style={linkStyle}>
 						All happy hours
 					</Link>
-				</Nav.Item>
+				</Nav.Item> */}
 				<Nav.Item className='m-2' >
 					<Link to='/add-happy-hour' style={linkStyle}>
 						Create Happy Hour
