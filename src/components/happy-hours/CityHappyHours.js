@@ -16,6 +16,8 @@ const CityHappyHours = (props) => {
     const [happyHours, setHappyHours] = useState(null)
     const [search, setSearch] = useState("")
     const navigate = useNavigate()
+
+    // Get all the happy hours in a city 
     useEffect(()=>{
         getLocalHappyHours(city, user)
             .then(res=>{
@@ -48,6 +50,7 @@ const CityHappyHours = (props) => {
 	const handleTagSubmit = (e) => {
 		console.log('this is search', search)
 		e.preventDefault()
+        // navigate to the index page for happy hours in that city with the tag from the search bar
 		navigate(`/happy-hours/index/${city}/${search.tag}`)
 	}
 

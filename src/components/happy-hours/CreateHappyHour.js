@@ -32,7 +32,7 @@ const CreateHappyHour = (props) => {
     const handleSubmit = (e) => {
         // e === event
         e.preventDefault()
-        //api call to create a new adventure
+        //api call to create a new happy hour
         createHappyHour(user, happyHour)
             // if create is successful, we should navigate to the show page
             .then(res => {navigate(`/happy-hours/${res.data.happyHour._id}`)})

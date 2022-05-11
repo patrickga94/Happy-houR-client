@@ -6,6 +6,7 @@ const CommentForm = (props) => {
     const {user, happyHour, triggerRefresh} = props
     const [comment, setComment] = useState("")
 
+    // Set the comment state to the contents of the comment form
     const handleChange = (e) => {
         e.persist()
         setComment(prevComment => {
@@ -17,10 +18,13 @@ const CommentForm = (props) => {
             return {...prevComment, ...updatedValue}
         })
     }
+
+    // Clear the comment form
     const clearField = () => {
         setComment({note: ''})
     }
 
+    // Post the comment on the happy hour
     const handleSubmit = (e) => {
         e.preventDefault()
         addComment(user, comment, happyHour._id)

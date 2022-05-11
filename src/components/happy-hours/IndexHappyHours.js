@@ -15,6 +15,7 @@ const IndexHappyHours = (props) => {
     const {user} = props
     const [happyHours, setHappyHours] = useState(null)
     useEffect(()=>{
+        // api call to get all happy hours
         getAllHappyHours(user)
             .then(res=>{
                 setHappyHours(res.data.happyHours)

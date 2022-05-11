@@ -15,7 +15,8 @@ const MyFaveHappyHours = (props) => {
     const {user} = props
     const [happyHours, setHappyHours] = useState(null)
     useEffect(()=>{
-        console.log('user', user)
+        // console.log('user', user)
+        // get all happy hours favorited by the user
         getFaveHappyHours(user)
             .then(res=>{
                 setHappyHours(res.data.happyHours)

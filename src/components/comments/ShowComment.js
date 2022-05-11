@@ -2,7 +2,6 @@ import { Card, Button } from 'react-bootstrap'
 import { removeComment } from '../../api/comments'
 
 const ShowComment = (props) => {
-    // most of these are simply to pass to edit modal
     const {comment, user, happyHour, triggerRefresh} = props
 
 

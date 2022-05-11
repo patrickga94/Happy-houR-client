@@ -15,6 +15,7 @@ const TaggedCityHappyHours = (props) => {
     const {city, tag} = useParams()
     const [happyHours, setHappyHours] = useState(null)
     useEffect(()=>{
+        // gets a list of happy hours in a city with a specific tag
         getTaggedHappyHours(city, tag, user)
             .then(res=>{
                 setHappyHours(res.data.happyHours)

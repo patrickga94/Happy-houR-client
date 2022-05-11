@@ -88,6 +88,9 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   /* background-color: #E24E42; */
   background-color: #3035C9;
   /* margin-bottom: 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .app-description{

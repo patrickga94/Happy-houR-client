@@ -15,6 +15,7 @@ const MyHappyHours = (props) => {
     const {user} = props
     const [happyHours, setHappyHours] = useState(null)
     useEffect(()=>{
+        // get all happy hours owned by the user
         getMyHappyHours(user)
             .then(res=>{
                 setHappyHours(res.data.happyHours)

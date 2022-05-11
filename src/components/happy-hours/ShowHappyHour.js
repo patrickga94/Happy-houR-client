@@ -3,7 +3,7 @@ import { getOneHappyHour, removeHappyHour, updateHappyHour } from '../../api/hap
 import { getPlaceDetails } from '../../api/places'
 import { addFavorite, removeFavorite } from '../../api/favorites'
 import {  Spinner, Container, Card, Button} from 'react-bootstrap'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import TagForm from '../tags/TagForm'
 import ShowTag from '../tags/ShowTag'
 import EditHappyHourModal from './EditHappyHourModal'
@@ -29,7 +29,7 @@ const ShowHappyHour = (props) =>{
     const navigate = useNavigate()
 
 
-
+    // delete the happy hour
     const deleteHappyHour = () =>{
         removeHappyHour(user, happyHour._id)
             .then(()=>{
@@ -37,16 +37,20 @@ const ShowHappyHour = (props) =>{
             })
     }
 
+    // Add the happy hour to the user's favorites
     const faveHappyHour = () => {
         addFavorite(user, happyHour._id)
             .then(res =>{
                 console.log('response', res)
+                // set the user to the user returned from the api call. We do this to get the user's updated
+                // favorites list so that we can change the "add to favorites" button to a "remove from favorites" button
                 setUser(res.data.user)
 
             })
             .catch(console.error)
     }
 
+    // Remove happy hour from user's favorites and then setUser with the updated user
     const unFave = () => {
         removeFavorite(user, happyHour._id)
             .then(res =>{
@@ -63,6 +67,7 @@ const ShowHappyHour = (props) =>{
 
     useEffect(()=>{
         // console.log('updated', updated)
+        //Get the happy hour after it's updated 
         getOneHappyHour(id, user)
             .then(res => {
                 setHappyHour(res.data.happyHour)
@@ -81,13 +86,17 @@ const ShowHappyHour = (props) =>{
                 })
                 .then(jsonData => {
                     console.log(jsonData)
+                    // set the place id with the api response
                     setPlaceId(jsonData.data.results[0].place_id)
+                    // Set the latitude and longitude with the api response
                     setCoordinates(jsonData.data.results[0].geometry.location)
+                    // set the neighborhood with the api response
                     setNeighborhood(jsonData.data.results[0].address_components[2].long_name)
                     return
                 })
                 .catch(console.error)
         }
+        // call the function once we have a happy hour
         getLocation()
         
 
@@ -96,14 +105,18 @@ const ShowHappyHour = (props) =>{
     let placeName 
     useEffect(()=>{
         if(happyHour){
+            // This makes sure we're not getting the place details of the initial latitude and longitude
             if(coordinates.lat !== 0){
                 console.log('place Id after', placeId)
+                // sets place name to a format that the google places api will like
                 placeName = `${happyHour.owner.username}+${neighborhood}+${happyHour.city}`
                 console.log('placeName', placeName)
                 getPlaceDetails(placeName, geoKey)
                     .then(response => {
                         console.log('place details', response)
+                        // set the rating to the api response
                         setRating(response.data.candidates[0].rating)
+                        // set "open" to true or false depending on the api response
                         setIsOpen(response.data.candidates[0].opening_hours.open_now)
                     })
                     .catch(console.error)
@@ -174,6 +187,7 @@ const ShowHappyHour = (props) =>{
                         <hr></hr>
                     </Card.Text>
                     <div id='display-card'>
+                        {/* This div contains the map from the google maps api */}
                         <div className="map-container">
                             <LoadScript
                                 googleMapsApiKey={`${geoKey}`}>
@@ -192,6 +206,7 @@ const ShowHappyHour = (props) =>{
 
                 </Card.Body>
                 <Card.Footer>
+                    {/* renders the add tag form, edit, and delete buttons if the user is the happy hour's owner */}
                     {happyHour.owner._id === user._id &&
                     <>
                         <div >
@@ -207,6 +222,7 @@ const ShowHappyHour = (props) =>{
                         </div>
                     </>
                     }
+                    {/* Renders the favorite or unfavorite button if the user is a guest */}
                     {happyHour.owner._id != user._id &&
                         <>
                             <div className="d-grid">
