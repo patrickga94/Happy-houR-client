@@ -64,6 +64,7 @@ const HappyHourForm = (props) => {
                     <Form.Label>State</Form.Label>
                         <select
                         value={happyHour.state}
+                        className="form-select form-select-md mb-3"
                         name='state'
                         onChange={handleChange}
                         required>
