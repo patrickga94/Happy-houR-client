@@ -59,10 +59,7 @@ const ShowHappyHour = (props) =>{
             .catch(console.error)
     }
 
-    const mapStyles = {
-        height: "75vh",
-        width: "75vh"
-    }
+
 
 
     useEffect(()=>{
@@ -192,7 +189,7 @@ const ShowHappyHour = (props) =>{
                             <LoadScript
                                 googleMapsApiKey={`${geoKey}`}>
                                 <GoogleMap
-                                mapContainerStyle={mapStyles}
+                                mapContainerStyle={{height: "60vh", width: "60vw"}}
                                 zoom={17}
                                 center={coordinates}
                                 >
